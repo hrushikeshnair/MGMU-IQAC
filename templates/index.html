@@ -3,28 +3,39 @@
 {% block title %}Home - MGMU Internal Quality Asessment Cell{% endblock %}
 
 {% block content %}
-<section class="hero">
-    <h1>MGMU Internal Quality Asessment Cell</h1>
-    <p style="margin-top:10px;">Committed to continuous improvement, quality assurance, and academic excellence. Explore our services, periodic reports, and contact the IQAC team.</p>
-    <div style="margin-top:18px; display:flex; gap:12px;">
-        <a href="{{ url_for('login') }}" style="background:var(--brown-700); color:var(--accent); padding:10px 14px; border-radius:6px; text-decoration:none; font-weight:700">Login</a>
-        <a href="#reports" style="background:#fff; border:1px solid #e7dfda; padding:10px 14px; border-radius:6px; text-decoration:none; color:var(--brown-900);">Reports</a>
-    </div>
-</section>
+<section class="hero-banner">
+    <div class="hero-overlay">
+        <div class="hero-inner container">
+            <div class="hero-left">
+                <h1>MGMU Internal Quality Assessment Cell</h1>
+                <p class="lead">Committed to continuous improvement, quality assurance, and academic excellence. Explore our services, periodic reports, and contact the IQAC team.</p>
+                <div class="hero-buttons">
+                    <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+                    <a class="btn btn-outline" href="#reports">Reports</a>
+                </div>
+            </div>
 
-<section style="margin-top:22px; display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:16px;">
-    <article class="content-box">
-        <h2>Our Mission</h2>
-        <p>To strive for academic quality through internal audits, auditor feedback, and faculty development programs.</p>
-    </article>
-    <article class="content-box">
-        <h2>Objectives</h2>
-        <ul>
-            <li>Promote quality culture</li>
-            <li>Regular monitoring and evaluation</li>
-            <li>Enhance academic standards</li>
-        </ul>
-    </article>
+            <div class="hero-cards">
+                <article class="card mission-card">
+                    <h3>Our Mission</h3>
+                    <p>To strive for <strong>academic quality</strong> through internal audits, auditor feedback, and faculty development programs.</p>
+                    <ul>
+                        <li>Promote quality culture</li>
+                        <li>Regular monitoring and evaluation</li>
+                        <li>Enhance academic standards</li>
+                    </ul>
+                </article>
+
+                <article class="card objectives-card">
+                    <h3>Objectives</h3>
+                    <ul>
+                        <li>Promote quality culture</li>
+                        <li>Regular monitoring and evaluation</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </div>
 </section>
 
 {% endblock %}
