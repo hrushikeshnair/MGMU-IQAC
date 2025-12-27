@@ -1,6 +1,6 @@
 /* Brown-themed site styles */
 :root{
-    --brown-900: #062244; /* deep navy */
+    --brown-900: #05326a; /* deep navy */
     --brown-800: #0b3a5c; /* mid navy */
     --brown-700: #2563eb; /* primary blue */
     --brown-500: #e6f0ff; /* pale blue */
@@ -16,7 +16,7 @@ body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-image: url('/static/images/Background.jpeg');
     background-size: cover;
-    background-position: center center;
+    background-position: center bottom;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-color: var(--muted);
@@ -105,7 +105,7 @@ body {
 /* Hero banner (large top section with background image) */
 .hero-banner{ position:relative; padding:0; margin:0 0 28px 0 }
 .hero-banner .hero-overlay{
-    background-image: linear-gradient(180deg, rgba(2,36,84,0.45), rgba(2,36,84,0.28)), url('/static/images/Background.jpeg');
+    background-image: linear-gradient(180deg, rgba(2,36,84,0.45), rgba(2,36,84,0.28));
     background-size: cover;
     background-position: center center;
     padding: 72px 0;
@@ -121,7 +121,15 @@ body {
 .btn-outline{ background: rgba(255,255,255,0.06); color: #fff; border:1px solid rgba(255,255,255,0.14) }
 
 .hero-cards{ width:380px; display:flex; flex-direction:column; gap:18px; transform: translateY(36px) }
-.card{ background: #fff; padding:20px; border-radius:14px; box-shadow: 0 28px 60px rgba(10,34,60,0.10); color:var(--brown-900) }
+.card{ 
+    background: rgba(255, 255, 255, 0.85); 
+    backdrop-filter: blur(12px); 
+    padding:20px; 
+    border-radius:14px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1); 
+    color:var(--brown-900); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
 .card h3{ margin:0 0 6px 0; font-size:1.05rem }
 .card p{ margin:6px 0 10px 0; color:#17324a }
 .card ul{ margin:0; padding-left:18px }

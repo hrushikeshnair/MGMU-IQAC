@@ -70,6 +70,43 @@
                     <label>Link</label>
                     <input type="url" name="link">
 
+                </form>
+            </div>
+        </details>
+        <details style="margin-bottom:20px;">
+            <summary style="cursor:pointer; font-weight:bold; padding:8px; background:#f0f0f0; border-radius:4px;">Research paper publication details in the conference</summary>
+            <div style="padding:16px; background:#fafafa; border-radius:4px; margin-top:8px;">
+                <form method="post" action="{{ url_for('submit_conference_paper') }}">
+                    <label>Title of paper *</label>
+                    <input type="text" name="title" required>
+
+                    <label>Name of author(s) *</label>
+                    <input type="text" name="authors" required>
+
+                    <label>Author position *</label>
+                    <input type="text" name="author_position" required>
+
+                    <label>Name of conference *</label>
+                    <input type="text" name="conference_name" required>
+
+                    <label>Date of conference *</label>
+                    <input type="date" name="conference_date" required>
+
+                    <label>Venue of conference *</label>
+                    <input type="text" name="venue" required>
+
+                    <label>Title of the conference proceedings</label>
+                    <input type="text" name="proceedings_title">
+
+                    <label>Publication details</label>
+                    <textarea name="publication_details"></textarea>
+
+                    <label>UGC Care/Scopus/WoS/Mention if other</label>
+                    <input type="text" name="indexing" placeholder="e.g., Scopus, WoS, UGC Care, or other">
+
+                    <label>Link</label>
+                    <input type="url" name="link">
+
                     <button type="submit" style="margin-top:12px; padding:8px 16px; background:#007bff; color:white; border:none; border-radius:4px;">Submit</button>
                 </form>
             </div>

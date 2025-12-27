@@ -72,6 +72,17 @@ def save_research_papers():
     with open('research_papers.json', 'w') as f:
         json.dump(app.config['RESEARCH_PAPERS'], f)
 
+def load_conference_papers():
+    try:
+        with open('conference_papers.json', 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_conference_papers():
+    with open('conference_papers.json', 'w') as f:
+        json.dump(app.config['CONFERENCE_PAPERS'], f)
+
 # load at startup
 app.config['INSTITUTES'] = load_institutes()
 app.config['FACULTY_DETAILS'] = load_faculty_details()
@@ -79,6 +90,7 @@ app.config['FACULTY_REPORTS'] = load_faculty_reports()
 app.config['GRADES'] = load_grades()
 app.config['CREDITS'] = load_credits_data()
 app.config['RESEARCH_PAPERS'] = load_research_papers()
+app.config['CONFERENCE_PAPERS'] = load_conference_papers()
 
 
 # Default credentials for roles (development only - replace with secure store)
@@ -458,7 +470,39 @@ def submit_research_paper():
     if not isinstance(app.config.get('RESEARCH_PAPERS'), list):
         app.config['RESEARCH_PAPERS'] = []
     app.config['RESEARCH_PAPERS'].append(entry)
-    save_research_papers()
+    return redirect(url_for('dashboard'))
+
+@app.route('/submit_conference_paper', methods=['POST'])
+def submit_conference_paper():
+    if session.get('role') != 'faculty':
+        return redirect(url_for('login'))
+    title = request.form.get('title')
+    authors = request.form.get('authors')
+    author_position = request.form.get('author_position')
+    conference_name = request.form.get('conference_name')
+    conference_date = request.form.get('conference_date')
+    venue = request.form.get('venue')
+    proceedings_title = request.form.get('proceedings_title')
+    publication_details = request.form.get('publication_details')
+    indexing = request.form.get('indexing')
+    link = request.form.get('link')
+    entry = {
+        'title': title,
+        'authors': authors,
+        'author_position': author_position,
+        'conference_name': conference_name,
+        'conference_date': conference_date,
+        'venue': venue,
+        'proceedings_title': proceedings_title,
+        'publication_details': publication_details,
+        'indexing': indexing,
+        'link': link,
+        'submitted_at': datetime.now().isoformat()
+    }
+    if not isinstance(app.config.get('CONFERENCE_PAPERS'), list):
+        app.config['CONFERENCE_PAPERS'] = []
+    app.config['CONFERENCE_PAPERS'].append(entry)
+    save_conference_papers()
     return redirect(url_for('dashboard'))
 
 if __name__ == "__main__":
