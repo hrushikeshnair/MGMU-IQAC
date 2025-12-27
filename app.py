@@ -83,6 +83,28 @@ def save_conference_papers():
     with open('conference_papers.json', 'w') as f:
         json.dump(app.config['CONFERENCE_PAPERS'], f)
 
+def load_book_publications():
+    try:
+        with open('book_publications.json', 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_book_publications():
+    with open('book_publications.json', 'w') as f:
+        json.dump(app.config['BOOK_PUBLICATIONS'], f)
+
+def load_book_chapters():
+    try:
+        with open('book_chapters.json', 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_book_chapters():
+    with open('book_chapters.json', 'w') as f:
+        json.dump(app.config['BOOK_CHAPTERS'], f)
+
 # load at startup
 app.config['INSTITUTES'] = load_institutes()
 app.config['FACULTY_DETAILS'] = load_faculty_details()
@@ -91,6 +113,8 @@ app.config['GRADES'] = load_grades()
 app.config['CREDITS'] = load_credits_data()
 app.config['RESEARCH_PAPERS'] = load_research_papers()
 app.config['CONFERENCE_PAPERS'] = load_conference_papers()
+app.config['BOOK_PUBLICATIONS'] = load_book_publications()
+app.config['BOOK_CHAPTERS'] = load_book_chapters()
 
 
 # Default credentials for roles (development only - replace with secure store)
@@ -470,6 +494,7 @@ def submit_research_paper():
     if not isinstance(app.config.get('RESEARCH_PAPERS'), list):
         app.config['RESEARCH_PAPERS'] = []
     app.config['RESEARCH_PAPERS'].append(entry)
+    save_research_papers()
     return redirect(url_for('dashboard'))
 
 @app.route('/submit_conference_paper', methods=['POST'])
@@ -503,6 +528,66 @@ def submit_conference_paper():
         app.config['CONFERENCE_PAPERS'] = []
     app.config['CONFERENCE_PAPERS'].append(entry)
     save_conference_papers()
+    return redirect(url_for('dashboard'))
+
+@app.route('/submit_book_publication', methods=['POST'])
+def submit_book_publication():
+    if session.get('role') != 'faculty':
+        return redirect(url_for('login'))
+    faculty_members = request.form.get('faculty_members')
+    author_position = request.form.get('author_position')
+    book_title = request.form.get('book_title')
+    publisher_details = request.form.get('publisher_details')
+    publication_type = request.form.get('publication_type')
+    isbn = request.form.get('isbn')
+    publication_date = request.form.get('publication_date')
+    link = request.form.get('link')
+    entry = {
+        'faculty_members': faculty_members,
+        'author_position': author_position,
+        'book_title': book_title,
+        'publisher_details': publisher_details,
+        'publication_type': publication_type,
+        'isbn': isbn,
+        'publication_date': publication_date,
+        'link': link,
+        'submitted_at': datetime.now().isoformat()
+    }
+    if not isinstance(app.config.get('BOOK_PUBLICATIONS'), list):
+        app.config['BOOK_PUBLICATIONS'] = []
+    app.config['BOOK_PUBLICATIONS'].append(entry)
+    save_book_publications()
+    return redirect(url_for('dashboard'))
+
+@app.route('/submit_book_chapter', methods=['POST'])
+def submit_book_chapter():
+    if session.get('role') != 'faculty':
+        return redirect(url_for('login'))
+    faculty_members = request.form.get('faculty_members')
+    author_position = request.form.get('author_position')
+    book_title = request.form.get('book_title')
+    chapter_title = request.form.get('chapter_title')
+    publisher_details = request.form.get('publisher_details')
+    publication_type = request.form.get('publication_type')
+    isbn = request.form.get('isbn')
+    publication_date = request.form.get('publication_date')
+    link = request.form.get('link')
+    entry = {
+        'faculty_members': faculty_members,
+        'author_position': author_position,
+        'book_title': book_title,
+        'chapter_title': chapter_title,
+        'publisher_details': publisher_details,
+        'publication_type': publication_type,
+        'isbn': isbn,
+        'publication_date': publication_date,
+        'link': link,
+        'submitted_at': datetime.now().isoformat()
+    }
+    if not isinstance(app.config.get('BOOK_CHAPTERS'), list):
+        app.config['BOOK_CHAPTERS'] = []
+    app.config['BOOK_CHAPTERS'].append(entry)
+    save_book_chapters()
     return redirect(url_for('dashboard'))
 
 if __name__ == "__main__":

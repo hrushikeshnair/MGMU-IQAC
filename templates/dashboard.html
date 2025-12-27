@@ -4,117 +4,270 @@
 
 {% block content %}
 <h2>{{ ROLE_DISPLAY.get(role, role) }} Dashboard</h2>
-<div style="margin-top:12px; max-width:800px;">
+
+<div style="margin-top:20px; max-width:1200px;">
     {% if role == 'faculty' %}
-        <div style="margin-bottom:20px;">
-            <a href="{{ url_for('faculty_details') }}" style="margin-right:12px; padding:8px 16px; background:#007bff; color:white; text-decoration:none; border-radius:4px;">My Details</a>
-            <a href="{{ url_for('faculty_reports') }}" style="padding:8px 16px; background:#28a745; color:white; text-decoration:none; border-radius:4px;">Teaching Reports</a>
+        <!-- Quick Actions -->
+        <div style="background:#f8f9fa; padding:20px; border-radius:8px; margin-bottom:30px; border-left:4px solid #007bff;">
+            <h3 style="margin-top:0; color:#333;">Quick Actions</h3>
+            <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                <a href="{{ url_for('faculty_details') }}" style="padding:12px 20px; background:#007bff; color:white; text-decoration:none; border-radius:6px; font-weight:500; transition:background 0.3s;">📝 My Details</a>
+                <a href="{{ url_for('faculty_reports') }}" style="padding:12px 20px; background:#28a745; color:white; text-decoration:none; border-radius:6px; font-weight:500; transition:background 0.3s;">📊 Teaching Reports</a>
+            </div>
         </div>
-        <details style="margin-bottom:20px;">
-            <summary style="cursor:pointer; font-weight:bold; padding:8px; background:#f0f0f0; border-radius:4px;">Research Paper Publication details in the Journal</summary>
-            <div style="padding:16px; background:#fafafa; border-radius:4px; margin-top:8px;">
-                <form method="post" action="{{ url_for('submit_research_paper') }}">
-                    <label>Title of Paper *</label>
-                    <input type="text" name="title" required>
 
-                    <label>Name of Author(s) *</label>
-                    <input type="text" name="authors" required>
+        <!-- Publication Submissions -->
+        <div style="background:#f8f9fa; padding:20px; border-radius:8px; margin-bottom:30px;">
+            <h3 style="margin-top:0; color:#333; border-bottom:2px solid #007bff; padding-bottom:10px;">📚 Submit Your Publications</h3>
+            <p style="color:#666; margin-bottom:20px;">Click on any section below to expand and submit your academic publications. All fields marked with * are required.</p>
 
-                    <label>Author Position *</label>
-                    <input type="text" name="author_position" required>
-
-                    <label>Name of Journal *</label>
-                    <input type="text" name="journal_name" required>
-
-                    <label>Year of Publication *</label>
-                    <input type="number" name="year" required>
-
-                    <label>Volume</label>
-                    <input type="text" name="volume">
-
-                    <label>Page Numbers</label>
-                    <input type="text" name="pages">
-
-                    <label>ISBN/ISSN</label>
-                    <input type="text" name="isbn_issn">
-
-                    <label>UGC Approved Journal</label>
-                    <select name="ugc_approved">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-
-                    <label>National/International Journal</label>
-                    <select name="journal_type">
-                        <option value="national">National</option>
-                        <option value="international">International</option>
-                    </select>
-
-                    <label>Impact Factor (if any)</label>
-                    <input type="text" name="impact_factor">
-
-                    <label>Scopus/WoS</label>
-                    <select name="indexing">
-                        <option value="scopus">Scopus</option>
-                        <option value="wos">WoS</option>
-                        <option value="both">Both</option>
-                        <option value="none">None</option>
-                    </select>
-
-                    <label>Paper Reviewed</label>
-                    <select name="reviewed">
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-
-                    <label>Link</label>
-                    <input type="url" name="link">
-
-                </form>
+            <!-- Research Publications in Journal -->
+            <div style="margin-bottom:25px;">
+                <details style="border:1px solid #ddd; border-radius:6px; background:white;">
+                    <summary style="cursor:pointer; font-weight:600; padding:15px; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:white; border-radius:6px; margin-bottom:0;">
+                        📄 Research Paper Publication in Journal
+                    </summary>
+                    <div style="padding:20px; background:#fafafa;">
+                        <form method="post" action="{{ url_for('submit_research_paper') }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:15px;">
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Title of Paper *</label>
+                                <input type="text" name="title" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Name of Author(s) *</label>
+                                <input type="text" name="authors" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Author Position *</label>
+                                <input type="text" name="author_position" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Name of Journal *</label>
+                                <input type="text" name="journal_name" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Year of Publication *</label>
+                                <input type="number" name="year" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Volume</label>
+                                <input type="text" name="volume" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Page Numbers</label>
+                                <input type="text" name="pages" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">ISBN/ISSN</label>
+                                <input type="text" name="isbn_issn" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">UGC Approved Journal</label>
+                                <select name="ugc_approved" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">National/International Journal</label>
+                                <select name="journal_type" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="national">National</option>
+                                    <option value="international">International</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Impact Factor</label>
+                                <input type="text" name="impact_factor" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Scopus/WoS</label>
+                                <select name="indexing" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="scopus">Scopus</option>
+                                    <option value="wos">WoS</option>
+                                    <option value="both">Both</option>
+                                    <option value="none">None</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Paper Reviewed</label>
+                                <select name="reviewed" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
+                            <div style="grid-column:span 2;">
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Link</label>
+                                <input type="url" name="link" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div style="grid-column:span 2; text-align:center; margin-top:10px;">
+                                <button type="submit" style="padding:12px 30px; background:#667eea; color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.3s;">Submit Journal Paper</button>
+                            </div>
+                        </form>
+                    </div>
+                </details>
             </div>
-        </details>
-        <details style="margin-bottom:20px;">
-            <summary style="cursor:pointer; font-weight:bold; padding:8px; background:#f0f0f0; border-radius:4px;">Research paper publication details in the conference</summary>
-            <div style="padding:16px; background:#fafafa; border-radius:4px; margin-top:8px;">
-                <form method="post" action="{{ url_for('submit_conference_paper') }}">
-                    <label>Title of paper *</label>
-                    <input type="text" name="title" required>
 
-                    <label>Name of author(s) *</label>
-                    <input type="text" name="authors" required>
-
-                    <label>Author position *</label>
-                    <input type="text" name="author_position" required>
-
-                    <label>Name of conference *</label>
-                    <input type="text" name="conference_name" required>
-
-                    <label>Date of conference *</label>
-                    <input type="date" name="conference_date" required>
-
-                    <label>Venue of conference *</label>
-                    <input type="text" name="venue" required>
-
-                    <label>Title of the conference proceedings</label>
-                    <input type="text" name="proceedings_title">
-
-                    <label>Publication details</label>
-                    <textarea name="publication_details"></textarea>
-
-                    <label>UGC Care/Scopus/WoS/Mention if other</label>
-                    <input type="text" name="indexing" placeholder="e.g., Scopus, WoS, UGC Care, or other">
-
-                    <label>Link</label>
-                    <input type="url" name="link">
-
-                    <button type="submit" style="margin-top:12px; padding:8px 16px; background:#007bff; color:white; border:none; border-radius:4px;">Submit</button>
-                </form>
+            <!-- Conference Publications -->
+            <div style="margin-bottom:25px;">
+                <details style="border:1px solid #ddd; border-radius:6px; background:white;">
+                    <summary style="cursor:pointer; font-weight:600; padding:15px; background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color:white; border-radius:6px; margin-bottom:0;">
+                        🎤 Research Paper Publication in Conference
+                    </summary>
+                    <div style="padding:20px; background:#fafafa;">
+                        <form method="post" action="{{ url_for('submit_conference_paper') }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:15px;">
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Title of Paper *</label>
+                                <input type="text" name="title" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Name of Author(s) *</label>
+                                <input type="text" name="authors" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Author Position *</label>
+                                <input type="text" name="author_position" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Name of Conference *</label>
+                                <input type="text" name="conference_name" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Date of Conference *</label>
+                                <input type="date" name="conference_date" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Venue of Conference *</label>
+                                <input type="text" name="venue" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Title of Conference Proceedings</label>
+                                <input type="text" name="proceedings_title" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div style="grid-column:span 2;">
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Publication Details</label>
+                                <textarea name="publication_details" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px; min-height:60px; resize:vertical;"></textarea>
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">UGC Care/Scopus/WoS/Mention if other</label>
+                                <input type="text" name="indexing" placeholder="e.g., Scopus, WoS, UGC Care, or other" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Link</label>
+                                <input type="url" name="link" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div style="grid-column:span 2; text-align:center; margin-top:10px;">
+                                <button type="submit" style="padding:12px 30px; background:#f5576c; color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.3s;">Submit Conference Paper</button>
+                            </div>
+                        </form>
+                    </div>
+                </details>
             </div>
-        </details>
-    {% elif role == 'auditor' %}
-        <div style="margin-bottom:20px;">
-            <a href="{{ url_for('audit_reports') }}" style="margin-right:12px; padding:8px 16px; background:#dc3545; color:white; text-decoration:none; border-radius:4px;">Audit Reports</a>
-            <a href="{{ url_for('assign_grades') }}" style="margin-right:12px; padding:8px 16px; background:#ffc107; color:black; text-decoration:none; border-radius:4px;">Assign Grades</a>
+
+            <!-- Book Publications -->
+            <div style="margin-bottom:25px;">
+                <details style="border:1px solid #ddd; border-radius:6px; background:white;">
+                    <summary style="cursor:pointer; font-weight:600; padding:15px; background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color:white; border-radius:6px; margin-bottom:0;">
+                        📖 Book Publication per Faculty Member
+                    </summary>
+                    <div style="padding:20px; background:#fafafa;">
+                        <form method="post" action="{{ url_for('submit_book_publication') }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:15px;">
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Name of the Faculty Member(s) *</label>
+                                <input type="text" name="faculty_members" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Author Position *</label>
+                                <input type="text" name="author_position" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Title of the Book *</label>
+                                <input type="text" name="book_title" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Details of the Publisher *</label>
+                                <input type="text" name="publisher_details" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">National/International *</label>
+                                <select name="publication_type" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="national">National</option>
+                                    <option value="international">International</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">ISBN *</label>
+                                <input type="text" name="isbn" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Publication Date *</label>
+                                <input type="date" name="publication_date" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Supporting Link</label>
+                                <input type="url" name="link" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div style="grid-column:span 2; text-align:center; margin-top:10px;">
+                                <button type="submit" style="padding:12px 30px; background:#4facfe; color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.3s;">Submit Book Publication</button>
+                            </div>
+                        </form>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Book Chapters -->
+            <div style="margin-bottom:25px;">
+                <details style="border:1px solid #ddd; border-radius:6px; background:white;">
+                    <summary style="cursor:pointer; font-weight:600; padding:15px; background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color:white; border-radius:6px; margin-bottom:0;">
+                        📑 Book Chapter Published
+                    </summary>
+                    <div style="padding:20px; background:#fafafa;">
+                        <form method="post" action="{{ url_for('submit_book_chapter') }}" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:15px;">
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Name of the Faculty Member(s) *</label>
+                                <input type="text" name="faculty_members" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Author Position *</label>
+                                <input type="text" name="author_position" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Title of the Book *</label>
+                                <input type="text" name="book_title" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Title of the Chapter *</label>
+                                <input type="text" name="chapter_title" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Details of the Publisher *</label>
+                                <input type="text" name="publisher_details" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">National/International *</label>
+                                <select name="publication_type" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                                    <option value="national">National</option>
+                                    <option value="international">International</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">ISBN *</label>
+                                <input type="text" name="isbn" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Publication Date *</label>
+                                <input type="date" name="publication_date" required style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div>
+                                <label style="display:block; font-weight:500; margin-bottom:5px; color:#333;">Supporting Link</label>
+                                <input type="url" name="link" style="width:100%; padding:8px; border:1px solid #ddd; border-radius:4px;">
+                            </div>
+                            <div style="grid-column:span 2; text-align:center; margin-top:10px;">
+                                <button type="submit" style="padding:12px 30px; background:#43e97b; color:white; border:none; border-radius:6px; font-weight:600; cursor:pointer; transition:background 0.3s;">Submit Book Chapter</button>
+                            </div>
+                        </form>
+                    </div>
+                </details>
+            </div>
         </div>
     {% elif role in ['iqac_coordinators', 'director', 'admin'] %}
         <div style="margin-bottom:20px;">
