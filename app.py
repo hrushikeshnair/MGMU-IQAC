@@ -61,12 +61,24 @@ def load_credits_data():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
+def load_research_papers():
+    try:
+        with open('research_papers.json', 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_research_papers():
+    with open('research_papers.json', 'w') as f:
+        json.dump(app.config['RESEARCH_PAPERS'], f)
+
 # load at startup
 app.config['INSTITUTES'] = load_institutes()
 app.config['FACULTY_DETAILS'] = load_faculty_details()
 app.config['FACULTY_REPORTS'] = load_faculty_reports()
 app.config['GRADES'] = load_grades()
 app.config['CREDITS'] = load_credits_data()
+app.config['RESEARCH_PAPERS'] = load_research_papers()
 
 
 # Default credentials for roles (development only - replace with secure store)
@@ -407,6 +419,47 @@ def logout():
 @app.route('/credits')
 def credits():
     return render_template('credits.html', credits=app.config['CREDITS'])
+
+@app.route('/submit_research_paper', methods=['POST'])
+def submit_research_paper():
+    if session.get('role') != 'faculty':
+        return redirect(url_for('login'))
+    title = request.form.get('title')
+    authors = request.form.get('authors')
+    author_position = request.form.get('author_position')
+    journal_name = request.form.get('journal_name')
+    year = request.form.get('year')
+    volume = request.form.get('volume')
+    pages = request.form.get('pages')
+    isbn_issn = request.form.get('isbn_issn')
+    ugc_approved = request.form.get('ugc_approved')
+    journal_type = request.form.get('journal_type')
+    impact_factor = request.form.get('impact_factor')
+    indexing = request.form.get('indexing')
+    reviewed = request.form.get('reviewed')
+    link = request.form.get('link')
+    entry = {
+        'title': title,
+        'authors': authors,
+        'author_position': author_position,
+        'journal_name': journal_name,
+        'year': year,
+        'volume': volume,
+        'pages': pages,
+        'isbn_issn': isbn_issn,
+        'ugc_approved': ugc_approved,
+        'journal_type': journal_type,
+        'impact_factor': impact_factor,
+        'indexing': indexing,
+        'reviewed': reviewed,
+        'link': link,
+        'submitted_at': datetime.now().isoformat()
+    }
+    if not isinstance(app.config.get('RESEARCH_PAPERS'), list):
+        app.config['RESEARCH_PAPERS'] = []
+    app.config['RESEARCH_PAPERS'].append(entry)
+    save_research_papers()
+    return redirect(url_for('dashboard'))
 
 if __name__ == "__main__":
     app.run(debug=True)

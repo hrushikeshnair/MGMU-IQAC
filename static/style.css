@@ -9,8 +9,16 @@
 }
 
 *{box-sizing:border-box}
+html, body {
+    height: 100%;
+}
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('/static/images/Background.jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: var(--muted);
     color: var(--brown-900);
     margin:0;

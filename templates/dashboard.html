@@ -10,6 +10,70 @@
             <a href="{{ url_for('faculty_details') }}" style="margin-right:12px; padding:8px 16px; background:#007bff; color:white; text-decoration:none; border-radius:4px;">My Details</a>
             <a href="{{ url_for('faculty_reports') }}" style="padding:8px 16px; background:#28a745; color:white; text-decoration:none; border-radius:4px;">Teaching Reports</a>
         </div>
+        <details style="margin-bottom:20px;">
+            <summary style="cursor:pointer; font-weight:bold; padding:8px; background:#f0f0f0; border-radius:4px;">Research Paper Publication details in the Journal</summary>
+            <div style="padding:16px; background:#fafafa; border-radius:4px; margin-top:8px;">
+                <form method="post" action="{{ url_for('submit_research_paper') }}">
+                    <label>Title of Paper *</label>
+                    <input type="text" name="title" required>
+
+                    <label>Name of Author(s) *</label>
+                    <input type="text" name="authors" required>
+
+                    <label>Author Position *</label>
+                    <input type="text" name="author_position" required>
+
+                    <label>Name of Journal *</label>
+                    <input type="text" name="journal_name" required>
+
+                    <label>Year of Publication *</label>
+                    <input type="number" name="year" required>
+
+                    <label>Volume</label>
+                    <input type="text" name="volume">
+
+                    <label>Page Numbers</label>
+                    <input type="text" name="pages">
+
+                    <label>ISBN/ISSN</label>
+                    <input type="text" name="isbn_issn">
+
+                    <label>UGC Approved Journal</label>
+                    <select name="ugc_approved">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <label>National/International Journal</label>
+                    <select name="journal_type">
+                        <option value="national">National</option>
+                        <option value="international">International</option>
+                    </select>
+
+                    <label>Impact Factor (if any)</label>
+                    <input type="text" name="impact_factor">
+
+                    <label>Scopus/WoS</label>
+                    <select name="indexing">
+                        <option value="scopus">Scopus</option>
+                        <option value="wos">WoS</option>
+                        <option value="both">Both</option>
+                        <option value="none">None</option>
+                    </select>
+
+                    <label>Paper Reviewed</label>
+                    <select name="reviewed">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <label>Link</label>
+                    <input type="url" name="link">
+
+                    <button type="submit" style="margin-top:12px; padding:8px 16px; background:#007bff; color:white; border:none; border-radius:4px;">Submit</button>
+                </form>
+            </div>
+        </details>
     {% elif role == 'auditor' %}
         <div style="margin-bottom:20px;">
             <a href="{{ url_for('audit_reports') }}" style="margin-right:12px; padding:8px 16px; background:#dc3545; color:white; text-decoration:none; border-radius:4px;">Audit Reports</a>
